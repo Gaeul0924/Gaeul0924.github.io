@@ -1,0 +1,217 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+	<link rel="stylesheet" type="text/css" href="test.css">
+</head>
+
+<body>
+	<div id="picture">
+			 <div class="banner">
+        <div class="warp">
+            <div class="item"><img src="1.jpg" alt=""></div>
+            <div class="item"><img src="2.jpg" alt=""></div>
+            <div class="item"><img src="3.jpg" alt=""></div>
+            <div class="item"><img src="4.jpg" alt=""></div>
+        </div>
+        <div class="div1">
+            </div> <div class="div2 ">
+        </div>
+        <!-- 小圆点 -->
+        <div class="pagenation">
+            <div id="pagenation-item0"></div>
+            <div id="pagenation-item1"></div>
+            <div id="pagenation-item2"></div>
+            <div id="pagenation-item3"></div>
+        </div>
+    </div>
+    <script>
+        var index = 0; //定义初始下标
+        var banner = document.getElementsByClassName("banner")[0];
+        var itemList = document.getElementsByClassName("item");
+        var pagenationList = document.querySelectorAll(".pagenation>div");
+        var pagenation = document.querySelector(".pagenation");
+        itemList[0].style.opacity = 1;
+        pagenationList[0].style.background = "blue" //初始第一张图对应的小圆点的颜色为蓝色
+        var up = document.getElementsByClassName("div1")[0];
+        var next = document.getElementsByClassName("div2")[0];
+        //下一张图片（封装方便下面自动播放定时器调用）
+        function nextFn() {
+            index = index >= itemList.length - 1 ? 0 : ++index; //判断点击到了最后一张图片再次点击返回到第一张图
+            for (var i = 0; i < itemList.length; i++) {
+                itemList[i].style.opacity = 0; //图片透明度为0图片隐藏
+                pagenationList[i].style.background = "white " //图片没显现小圆点的颜色为白色
+            }
+            itemList[index].style.transition = "opacity 1s ease .2s"
+            itemList[index].style.opacity = 1; //图片透明度为1图片显现
+            pagenationList[index].style.background = "blue" //图片显现小圆点的颜色为蓝色
+        }
+        next.onclick = nextFn; //下一张（点击事件）点击切换下一张图片
+        up.onclick = function () { //上一张（点击事件）点击切换上一张图片
+            index = index <= 0 ? itemList.length - 1 : --index; //判断点击到了第一张图片再次点击返回到最后一张图
+            for (var i = 0; i < itemList.length; i++) {
+                itemList[i].style.opacity = 0;
+                pagenationList[i].style.background = "white"
+            }
+            itemList[index].style.transition = "opacity 1s ease .2s" //增加过渡效果
+            itemList[index].style.opacity = 1;
+            pagenationList[index].style.background = "blue"
+        }
+        //设置定时器，自动向下播放图片
+        var t1 = setInterval(nextFn, 2000) 
+        banner.onmouseover = function () {
+            clearInterval(t1);
+        }
+        banner.onmouseout = function () {
+            t1 = setInterval(nextFn, 2000)
+        }
+        // 事件委托
+        pagenation.onclick = function (event) {
+            event = window.event || event
+            console.log(event);
+            if (event.target.className == "pagenation") {
+                console.log("点击的是父元素");
+            } else {
+                var id = event.target.id;
+                var photoIndex = null;
+                for (var i = 0; i < pagenationList.length; i++) {
+                    pagenationList[i].style.background = "white"
+                    if (id.indexOf(i) >= 0) {
+                        photoIndex = i;
+                    }
+                }
+                event.target.style.background = "blue"
+                index = photoIndex; // 将小圆点对应的下标与图片下标对应
+                for (var i = 0; i < itemList.length; i++) {
+                    itemList[i].style.opacity = 0;
+                }
+                itemList[index].style.transition = "opacity 1s ease .2s"
+                itemList[photoIndex].style.opacity = 1;
+            }
+        }
+    </script>
+	</div>
+	<fieldset>
+  <legend>🍁购前须知🍁</legend>
+	<h1><img src="../10月份要上传的网站/picture/gaeul.jpg" style="height: 150px;width:150px">感谢支持秋天的新专，祝您天天开心</h1>
+		<p>主超话：<a href="https://weibo.com/p/100808fb729fbd28aae8c9866c90d84db0e7bc">秋天GAEUL</a><br>
+		      交易超：<a href="https://weibo.com/p/100808d127b1ed65472cbddb5b25ea56132800">秋日小卖部</a><br>
+		      秋吧微博：<a href="https://weibo.com/u/2974862023">秋天Gaeul_Iris0924</a><br>
+		<h2>商品信息含有【】算秋天的中输，同一特典不同平台配置一样。</h2>
+		<h2>拼车注意询问是否在秋吧下单/有没有骂过秋天</h2>
+		</p>
+  <a href="https://www.baidu.com/">
+  <input type="button" value="特典预览" />
+  </a>
+  <a href="https://www.baidu.com/">
+  <input type="button" value="常见问题" />
+  </a>
+  <a href="https://www.baidu.com/">
+  <input type="button" value="专辑配置" />
+  </a>
+  <a href="https://www.baidu.com/">
+  <input type="button" value="价格对比" />
+  </a>
+  <a href="https://weibo.com/2930810063/MrCwvbrhB">
+  <input type="button" value="直拍教程" />
+  </a>
+</fieldset>
+	<fieldset>
+  <legend>🍁SW🍁</legend>
+		<p>配置：</p>
+		<ul class="goodlist">
+        <li class="gl-item">
+            <div class="p-img-preview"><a href="http://m.liveonepick.com/#/?productId=81baab5e4de14a9887ea3206f57df2a5"><img src="picture/xh1.jpg" ></a></div>
+			<div class="p-name">
+                <a href="http://m.liveonepick.com/#/?productId=81baab5e4de14a9887ea3206f57df2a5">
+                    <em><font class="keyword-color">🍁SW1.0🍁</font></em><br>
+					<i class="special-words">截止时间：9月24日</i>
+                </a></div></li>
+			 <li class="gl-item">
+            <div class="p-img"><a href="http://m.liveonepick.com/#/?productId=81baab5e4de14a9887ea3206f57df2a5"><img src="picture/xh1.jpg" ></a></div>
+			<div class="p-name">
+                <a href="http://m.liveonepick.com/#/?productId=81baab5e4de14a9887ea3206f57df2a5">
+                    <em><font class="keyword-color">🍁楠艺🍁</font></em><br>
+					<i class="special-words">截止时间：9月24日</i>
+                </a></div>
+			<div class="p-icons">
+				<span>【直邮】【无特典】</span>
+			</div>
+			<div class="p-configuration">
+	                <strong>
+	                    <i></i>
+	                </strong>
+	            	</div>
+		</li>
+			<li class="gl-item">
+            <div class="p-img"><a href="http://m.liveonepick.com/#/?productId=81baab5e4de14a9887ea3206f57df2a5"><img src="picture/xh1.jpg" ></a></div>
+			<div class="p-name">
+                <a href="http://m.liveonepick.com/#/?productId=81baab5e4de14a9887ea3206f57df2a5">
+                    <em><font class="keyword-color">🍁星河🍁</font></em><br>
+					<i class="special-words">截止时间：9月24日</i>
+                </a></div>
+			<div class="p-icons">
+				<span>【直邮】【无特典】</span>
+			</div>
+			<div class="p-configuration">
+	                <strong>
+	                    <i></i>
+	                </strong>
+	            	</div>
+		</li>
+			<li class="gl-item">
+            <div class="p-img"><a href="http://m.liveonepick.com/#/?productId=81baab5e4de14a9887ea3206f57df2a5"><img src="picture/xh1.jpg" ></a></div>
+			<div class="p-name">
+                <a href="http://m.liveonepick.com/#/?productId=81baab5e4de14a9887ea3206f57df2a5">
+                    <em><font class="keyword-color">🍁K4🍁</font></em><br>
+					<i class="special-words">截止时间：9月24日</i>
+                </a></div>
+			<div class="p-icons">
+				<span>【直邮】【无特典】</span>
+			</div>
+			<div class="p-configuration">
+	                <strong>
+	                    <i></i>
+	                </strong>
+	            	</div>
+		</li>
+			<li class="gl-item">
+            <div class="p-img"><a href="http://m.liveonepick.com/#/?productId=81baab5e4de14a9887ea3206f57df2a5"><img src="picture/xh1.jpg" ></a></div>
+			<div class="p-name">
+                <a href="http://m.liveonepick.com/#/?productId=81baab5e4de14a9887ea3206f57df2a5">
+                    <em><font class="keyword-color">🍁爱豆驿站🍁</font></em><br>
+					<i class="special-words">截止时间：9月24日</i>
+                </a></div>
+			<div class="p-icons">
+				<span>【直邮】【无特典】</span>
+			</div>
+			<div class="p-configuration">
+	                <strong>
+	                    <i></i>
+	                </strong>
+	            	</div>
+		</li>
+			<li class="gl-item-second">
+            <div class="p-img"><a href="http://m.liveonepick.com/#/?productId=81baab5e4de14a9887ea3206f57df2a5"><img src="picture/xh1.jpg" ></a></div>
+			<div class="p-name">
+                <a href="http://m.liveonepick.com/#/?productId=81baab5e4de14a9887ea3206f57df2a5">
+                    <em><font class="keyword-color">🍁偶像便利店🍁</font></em><br>
+					<i class="special-words">截止时间：9月24日</i>
+                </a></div>
+			<div class="p-icons">
+				<span>【直邮】【无特典】</span>
+			</div>
+			<div class="p-configuration">
+	                <strong>
+	                    <i></i>
+	                </strong>
+	            	</div>
+		</li>
+	</ul>
+	</fieldset>
+	<div class="footer">
+			<a href="#top" target="_self">返回顶部</a>
+		</div>
+</body>
+</html>
